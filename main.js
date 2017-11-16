@@ -21,16 +21,12 @@ while (randArr.length < 16) {
   ++countUp
 }
 
-console.log(randArr)
-
 function changeAlt(num) {
   var numVar = ($("div").children("div").children("img:eq(" + num + ")"))
-  console.log(numVar)
   if( numVar.attr("src") == num ) {
-    console.log("yay")
     numVar.attr("alt", "images/" + randArr[num])
   } else
-  console.log("id check fail")
+  return
 }
 
 $("img").attr("src", "images/card.jpg")
@@ -40,16 +36,16 @@ $(document).ready( function() {
 
   var ansArr = []  
   var successArr = []
-
-
-
+  var attempts = 0
+  var matches = 0
 
 
   $("img").on("click", function() {
     if( $(this).attr("id") === "no_click") {
       return
   } else {
-      // console.log($(this).attr("id"))    
+      console.log(attempts)
+      $("#attempts").text("Attempts: " + ++attempts)
       var source = $(this).attr("alt")
       $(this).attr("src", source )
       $(this).attr("id", "no_click") 
@@ -64,27 +60,23 @@ $(document).ready( function() {
   
 
   function checkMatch() {
-    ansArr.length > 2 ? ansArr.shift() : console.log("thisisgood")
+    ansArr.length > 2 ? ansArr.shift() : console.log("")
     ansArr[ansArr.length - 1] === ansArr[ansArr.length - 2] ? success() : flipOver()
     ansArr = []
   }
 
   function flipOver() {
     $("img").attr("id", "no_click")    
-    // console.log("no click")
     setTimeout( function() {
       $("img").attr("src", "images/card.jpg" )     
       ansArr = []
-      // console.log("waiting")
       $("img").attr("id", "")
     }, 500)
   }
 
   function success() {
-    // console.log("success")
     successArr.push(ansArr[1])
-    // console.log(successArr)
+    $("#matches").text("Matches: " + ++matches)
   }
-
 
 })
