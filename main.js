@@ -39,13 +39,14 @@ $(document).ready( function() {
   var attempts = 0
   var matches = 0
 
-
   $("img").on("click", function() {
     if( $(this).attr("id") === "no_click") {
       return
   } else {
       console.log(attempts)
       $("#attempts").text("Attempts: " + ++attempts)
+      var ratio = (matches/attempts) * 100     
+      $("#ratio").text("Ratio: " + ratio.toFixed(2) +"%")
       var source = $(this).attr("alt")
       $(this).attr("src", source )
       $(this).attr("id", "no_click") 
@@ -76,7 +77,9 @@ $(document).ready( function() {
 
   function success() {
     successArr.push(ansArr[1])
-    $("#matches").text("Matches: " + ++matches)
+    $("#matches").text("Matches: " + (matches += 2))
+    var ratio = (matches/attempts) * 100   
+    $("#ratio").text("Ratio: " + ratio.toFixed(2) +"%")    
   }
 
 })
