@@ -38,12 +38,12 @@ $(document).ready( function() {
   var successArr = []
   var attempts = 0
   var matches = 0
+  var currentMatches = 0
 
   $("img").on("click", function() {
     if( $(this).attr("id") === "no_click") {
       return
   } else {
-      console.log(attempts)
       $("#attempts").text("Attempts: " + ++attempts)
       var ratio = (matches/attempts) * 100     
       $("#ratio").text("Ratio: " + ratio.toFixed(2) +"%")
@@ -67,7 +67,8 @@ $(document).ready( function() {
   }
 
   function flipOver() {
-    $("img").attr("id", "no_click")    
+    $("img").attr("id", "no_click")   
+    currentMatches = 0 
     setTimeout( function() {
       $("img").attr("src", "images/card.jpg" )     
       ansArr = []
@@ -79,7 +80,13 @@ $(document).ready( function() {
     successArr.push(ansArr[1])
     $("#matches").text("Matches: " + (matches += 2))
     var ratio = (matches/attempts) * 100   
-    $("#ratio").text("Ratio: " + ratio.toFixed(2) +"%")    
+    $("#ratio").text("Ratio: " + ratio.toFixed(2) +"%") 
+    currentMatches++ 
+    checkWin()  
+  }
+
+  function checkWin() {
+    currentMatches === 8 ? alert("Winner! Score = " + attempts) : console.log()
   }
 
 })
